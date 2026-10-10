@@ -32,16 +32,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/aos@2.3.4/dist/aos.css"
-    />
     <link rel="stylesheet" href="style.css" />
-    <noscript>
-      <style>
-        [data-aos] { opacity: 1 !important; transform: none !important; pointer-events: auto !important; }
-      </style>
-    </noscript>
   </head>
   <body>
     <a class="skip-link" href="#top">Bỏ qua điều hướng</a>
@@ -368,17 +359,5 @@
         </div>
       </footer>
     </div>
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
-    <script>
-      window.addEventListener("DOMContentLoaded", function () {
-        if (!window.AOS) return;
-        AOS.init({
-          duration: 700,
-          once: true,
-          offset: 80,
-          disable: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-        });
-      });
-    </script>
   </body>
 </html>
