@@ -261,7 +261,6 @@ input {
   min-height: 58px;
   padding: 0.95rem 2.1rem;
   font-size: 1.05rem;
-  /* two stacked layers: white shine sheen + flowing brand gradient */
   background:
     linear-gradient(110deg, transparent 38%, rgba(255, 255, 255, 0.75) 50%, transparent 62%) 100% 0 / 250% 100% no-repeat,
     linear-gradient(90deg, var(--cyan), var(--magenta), var(--violet), var(--cyan)) 0 0 / 300% 100% no-repeat;
@@ -270,13 +269,11 @@ input {
     box-shadow 0.35s ease,
     background-position 0.9s ease,
     letter-spacing 0.35s ease;
-  /* keep the entrance animation, then start the heartbeat (animates `scale`, so it never fights hover `transform`) */
   animation:
     fadeInUp 1s backwards,
     cta-beat 2.4s ease-in-out 1.4s infinite;
 }
 
-/* expanding rings that radiate from the button */
 .btn-primary.btn-cta::before,
 .btn-primary.btn-cta::after {
   content: "";
@@ -379,7 +376,6 @@ input {
 }
 
 /* ===== Pure CSS typing effect, looping continuously (hero description) ===== */
-/* Monospace font => 1ch is exactly one character, so steps(n) types one letter per step. */
 .typing {
   font-family: var(--font-mono);
   font-size: min(1.05rem, 3.2vw);
@@ -392,7 +388,7 @@ input {
   width: 0;
   overflow: hidden;
   white-space: nowrap;
-  border-right: 2px solid transparent; /* caret */
+  border-right: 2px solid transparent;
 }
 
 .typing-line:nth-child(1) {
@@ -461,7 +457,6 @@ input {
   83.4% { border-right-color: var(--cyan); }
   86.7% { border-right-color: transparent; }
   90.0% { border-right-color: var(--cyan); }
-  90% { border-right-color: var(--cyan); }
   93% { border-right-color: transparent; }
   100% { border-right-color: transparent; }
 }
@@ -748,7 +743,6 @@ input {
   --glow-rgb: 255, 60, 172;
 }
 
-/* glowing gradient border */
 .benefits-grid .info-card::before {
   content: "";
   position: absolute;
@@ -765,7 +759,6 @@ input {
   pointer-events: none;
 }
 
-/* soft light spilling from the top of the card */
 .benefits-grid .info-card::after {
   content: "";
   position: absolute;
@@ -778,8 +771,6 @@ input {
   pointer-events: none;
 }
 
-/* high specificity so AOS transforms don't cancel the lift */
-.benefits-grid .info-card.aos-animate:hover,
 .benefits-grid .info-card:hover,
 .benefits-grid .info-card:focus-within {
   transform: translateY(-18px) scale(1.04);
@@ -1067,7 +1058,6 @@ input {
   cursor: default;
 }
 
-/* thin scanline across the middle, like a flip-clock split */
 .countdown-box::after {
   content: "";
   position: absolute;
@@ -1088,7 +1078,6 @@ input {
     inset 0 0 26px rgba(var(--c-rgb), 0.4);
 }
 
-/* The text inside the span is only a fallback; the visible digits are drawn by ::after from an animated counter. */
 .countdown-number {
   font-size: 0;
   line-height: 1;
@@ -1114,8 +1103,6 @@ input {
   color: var(--c);
 }
 
-/* ===== Countdown: pure-CSS counting (no JavaScript) ===== */
-/* A registered integer property can be animated; a counter turns it into text. */
 @property --count {
   syntax: "<integer>";
   initial-value: 0;
@@ -1127,13 +1114,11 @@ input {
 @keyframes cd-hour { from { --count: 12; } to { --count: 0; } }
 @keyframes cd-day { from { --count: 3; } to { --count: 0; } }
 
-/* jump-none: N levels, each held for the same time => one value per second / minute / hour / day */
 .cd-seconds { --count: 30; animation: cd-sec 60s steps(60, jump-none) -29s infinite; }
 .cd-minutes { --count: 45; animation: cd-min 2760s steps(46, jump-none) infinite; }
 .cd-hours { --count: 12; animation: cd-hour 46800s steps(13, jump-none) infinite; }
 .cd-days { --count: 3; animation: cd-day 345600s steps(4, jump-none) infinite; }
 
-/* the seconds digits drop in on every tick */
 .cd-seconds::after {
   animation: cd-tick 1s ease-out infinite;
 }
@@ -1143,7 +1128,6 @@ input {
   25%, 100% { transform: none; opacity: 1; filter: none; }
 }
 
-/* other digits: occasional neon-sign flicker */
 .cd-minutes::after,
 .cd-hours::after,
 .cd-days::after {
@@ -1158,7 +1142,6 @@ input {
   91%, 95% { opacity: 0.35; }
 }
 
-/* last 10 seconds of every minute: seconds box flashes hot pink */
 .box-seconds::before {
   content: "";
   position: absolute;
@@ -1198,7 +1181,6 @@ input {
   100% { opacity: 0; }
 }
 
-/* ===== Registration: stronger interactions ===== */
 .register-form {
   position: relative;
 }
@@ -1383,12 +1365,10 @@ input {
   }
 }
 
-/* ===== Countdown colour variants (replace inline styles) ===== */
 .countdown-box.is-cyan { --c: var(--cyan); --c-rgb: var(--cyan-rgb); }
 .countdown-box.is-purple { --c: var(--purple); --c-rgb: var(--purple-rgb); }
 .countdown-box.is-magenta { --c: var(--magenta); --c-rgb: var(--magenta-rgb); }
 
-/* ===== Accessibility helpers ===== */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -1424,10 +1404,9 @@ input {
 }
 
 .register-form input:focus-visible {
-  outline: none; /* neon glow already marks focus */
+  outline: none;
 }
 
-/* ===== Form validation (pure CSS) ===== */
 .field-error {
   display: none;
   font-size: 0.85rem;
@@ -1443,18 +1422,38 @@ input {
   display: block;
 }
 
-/* ===== AOS compatibility =====
-   AOS leaves `transform` and `transition-delay` on revealed elements, which would
-   cancel or delay our hover effects. These rules win by specificity / !important. */
-[data-aos].aos-animate:hover {
-  transition-delay: 0s !important;
+/* ===== Thuần CSS thay thế AOS (Animate On Scroll bằng JavaScript) ===== */
+[data-aos] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-.agenda-wrap .agenda-item.aos-animate:hover {
+@supports (animation-timeline: view()) {
+  [data-aos] {
+    opacity: 1;
+    transform: translateY(0);
+    animation: aosFadeIn linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+}
+
+@keyframes aosFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.agenda-wrap .agenda-item:hover {
   transform: translateY(-8px);
 }
 
-/* ===== Reduced motion (single source of truth) ===== */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1475,8 +1474,11 @@ input {
   .btn-primary.btn-cta::before,
   .btn-primary.btn-cta::after,
   .orb,
-  .box-seconds::before {
+  .box-seconds::before,
+  [data-aos] {
     animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .countdown-number {
